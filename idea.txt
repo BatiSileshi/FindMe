@@ -1,0 +1,2 @@
+1. There is workers city ...user can search workers by city
+2. There must be work type
