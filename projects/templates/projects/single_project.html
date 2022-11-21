@@ -2,7 +2,21 @@
 
 {% block content%}
 <h2>Single projects</h2>
+<div>
+    {{ project.title }}
 <img src="{{ project.project_image.url }}">
 
+{% for review in reviews %}
 
+<p> {{review.value}} </p>
+{% endfor %}
+
+
+
+{% for tag in tags %}
+
+<p> {{tag}} </p>
+{% endfor %}
+
+</div>
 {% endblock content%}

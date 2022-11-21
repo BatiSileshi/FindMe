@@ -1,2 +1,24 @@
 1. There is workers city ...user can search workers by city
 2. There must be work type
+
+
+models
+1, Projects [title, description, project image, demo_link, source_link, tags, review_total, review_ration, profile] m to m with tags
+
+2. Tags [name ]
+
+3. Review [project( 1 to m), body, value]
+
+
+users
+1 to 1 (user to profile)
+1. Profile [owner, city, first_name, email, phone_number, username, telegram, facebook, instagram, twitter, linked_in, profile_image, bio, about] 
+- one profile has many projects
+
+2. Skills [name, description]
+
+3. 
+
+
+
+1. city [name]

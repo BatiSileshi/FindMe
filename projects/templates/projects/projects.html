@@ -1,6 +1,15 @@
 {% extends 'main.html' %}
 
 {% block content%}
+
+<h2>Serach for projects</h2>
+<form action="{% url 'projects' %}" method="get">
+    <label for="formInput"> Search by projects</label>
+    <input type="text" name="search_query"  value="{{search_query}}" placeholder="Search by project title">
+    <input type="submit" value="Search">
+</form>
+
+
 <h2>Projects</h2>
 {% for project in projects %}
 <p> <a href="{% url 'project' project.id %}">{{project.title}} </a>- <a href="{% url 'update-project' project.id %}">Update</a> - <a href="{% url 'delete-project' project.id %}">Delete</a> </p>

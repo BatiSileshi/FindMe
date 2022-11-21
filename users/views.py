@@ -3,10 +3,14 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
+from projects.models import Project
+
 # Create your views here.
 
 def home(request):
-    return render(request, 'users/home.html')
+  
+    context={}
+    return render(request, 'users/profiles.html', context)
 
 
 def loginUser(request):
@@ -54,6 +58,6 @@ def registerUser(request):
             login(request, user)
             return redirect('projects')
         else:
-            messages.error(request, "Error ocuured during registration")
+            messages.error(request, "Error occurred during registration")
     context={'page':page, 'form':form}
     return render(request, 'users/login_register.html', context)

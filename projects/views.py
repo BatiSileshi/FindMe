@@ -1,18 +1,27 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q
+
 from .forms  import ProjectForm
-from .models import Project
+from .models import Project, Tag, Review
+from .utils import searchProject
+
 # Create your views here.
 
 
 def projects(request):
-    projects = Project.objects.all()
-    context={'projects':projects}
+    
+    projects, search_query = searchProject(request)
+
+    
+    context={'projects':projects, 'search_query':search_query}
     return render(request, 'projects/projects.html', context)
 
 def project(request, pk):
     project = Project.objects.get(id=pk)
-    context={'project':project}
+    reviews = project.review_set.all()
+    tags = project.tags.all()
+    context={'project':project, 'tags':tags, 'reviews':reviews}
     return render(request, 'projects/single_project.html', context)
 
 def createProject(request):
