@@ -3,7 +3,9 @@
 {% block content%}
 
 <h3>Welcome</h4>
+{% for profile in profiles %}
+<p>{{profile.name}}</p>
 
-
+{% endfor %}
 {% endblock content%}
 

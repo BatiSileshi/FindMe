@@ -4,12 +4,13 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
 from projects.models import Project
+from .models import Profile
 
 # Create your views here.
 
-def home(request):
-  
-    context={}
+def profiles(request):
+    profiles = Profile.objects.all()
+    context={'profiles':profiles}
     return render(request, 'users/profiles.html', context)
 
 
@@ -19,11 +20,11 @@ def loginUser(request):
         return redirect('projects')
     
     if request.method=='POST':
-        username = request.POST['username']
+        username = request.POST['username'].lower()
         password = request.POST['password']
         
         try:
-            user=User.object.get(username=username)
+            user=User.objects.get(username=username)
         except: 
             messages.error(request, 'Username does not exist')
             
@@ -31,7 +32,7 @@ def loginUser(request):
         
         if user is not None:
             login(request, user)
-            return redirect('projects')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'profiles')   #later send them to account
         else:
             messages.error(request, 'Username or password does not exist')
             
