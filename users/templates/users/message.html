@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+
+{% block content%}
+<div><a href="{% url 'inbox' %}">Back</a></div>
+<h3>Message detail</h4>
+  <p>Subject: {{message.subject}}</p>
+  <p>Body: {{message.body|linebreaksbr}}</p>
+  <p>Date: {{message.created_at}}</p>
+{% endblock content%}
+

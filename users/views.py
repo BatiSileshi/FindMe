@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, MessageForm
 from projects.models import Project
-from .models import Profile
-
+from .models import Profile, Message
 # Create your views here.
 
 def profiles(request):
@@ -13,6 +13,11 @@ def profiles(request):
     context={'profiles':profiles}
     return render(request, 'users/profiles.html', context)
 
+def userProfile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    
+    context={'profile':profile}
+    return render(request, 'users/user_profile.html', context)
 
 def loginUser(request):
     page = 'login'
@@ -62,3 +67,29 @@ def registerUser(request):
             messages.error(request, "Error occurred during registration")
     context={'page':page, 'form':form}
     return render(request, 'users/login_register.html', context)
+
+
+@login_required(login_url='login')
+def inbox(request):
+    profile = request.user.profile
+    messageRequests = profile.messages.all()
+    unreadCount = messageRequests.filter(is_read=False).count()
+    context={'messageRequests':messageRequests, 'unreadCount':unreadCount}
+    return render(request, 'users/inbox.html', context)
+
+@login_required(login_url='login')
+def viewMessage(request, pk):
+    profile = request.user.profile
+    message = profile.messages.get(id=pk)
+    if message.is_read == False:
+        message.is_read = True
+        message.save()
+    context={'message':message}
+    return render(request, 'users/message.html', context)
+
+
+def createMessage(request, pk):
+    recipient = Profile.objects.get(id=pk)
+    form = MessageForm()
+    context={'recipient':recipient, 'form':form}
+    return render(request, 'users/message_form.html', context)

@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<h3>Inbox</h4>
+
+    <p>New messages ({{unreadCount}})</p>
+<div style="border: solid 4px;">
+ {% for message in messageRequests %}
+{% if message.is_read == False %}
+
+<li style="background-color: red;">
+    {% else %}  
+    <li style="background-color:blue;">
+    {% endif %}
+ <a href="{% url 'message' message.id %}" >
+    <span>{{message.name}}</span>
+        <span>{{message.subject}}</span>
+        <span>{{message.created_at}}</span>
+
+    </a>
+</li>
+    <hr>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+{% endblock content%}
+

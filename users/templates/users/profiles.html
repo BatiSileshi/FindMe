@@ -4,7 +4,7 @@
 
 <h3>Welcome</h4>
 {% for profile in profiles %}
-<p>{{profile.name}}</p>
+<a href="{% url 'user-profile' profile.id %}"><p>{{profile.name}}</p></a>
 
 {% endfor %}
 {% endblock content%}

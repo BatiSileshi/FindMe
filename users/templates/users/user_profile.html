@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<h3>Welcome</h4>
+    <div style="border-left: 5px solid;">
+<p>{{profile.name}} </p>
+<p>{{profile.email}} </p>
+<p>{{profile.short_intro}} </p>
+<p>{{profile.profile_image.url}} </p>
+<a href="{% url 'create-message' profile.id %}"><button>Send Message</button></a>
+
+    </div>
+{% endblock content%}
+
