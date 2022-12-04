@@ -4,5 +4,31 @@
 
 <p><a href="{% url 'user-profile' recipient.id %}">Back</a>
 
+ <form action="" method="POST">
+  {% csrf_token %}
+  {% if request.user.is_authenticated == False %}
+  <div>
+    <label for="">{{form.name.label}}</label>
+    {{form.name}}
+  </div>
+  <div>
+    <label for="">{{form.email.label}}</label>
+    {{form.email}}
+  </div>
+  {% endif %}
+  <div>
+    <label for="">{{form.subject.label}}</label>
+    {{form.subject}}
+  </div>
+  <div>
+    <label for="">{{form.body.label}}</label>
+    {{form.body}}
+  </div>
+  <!-- {{form.as_p}} -->
+    <input type="submit" value="Send">
+ </form>
+
+
+
 {% endblock content%}
 

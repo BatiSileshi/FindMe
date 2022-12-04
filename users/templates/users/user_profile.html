@@ -7,9 +7,20 @@
 <p>{{profile.name}} </p>
 <p>{{profile.email}} </p>
 <p>{{profile.short_intro}} </p>
-<p>{{profile.profile_image.url}} </p>
+<img src="{{profile.profile_image.url}} " alt="">
 <a href="{% url 'create-message' profile.id %}"><button>Send Message</button></a>
 
+    </div>
+
+    <div style="width: 200; height: 200; border: solid 2px;">
+        {% for project in projects  %}
+         <p>{{project.title }}</p>
+         <!-- <p>{{project.project_image.url }}</p> -->
+         <p>{{project.description }}</p>
+         <p>{{project.demo_link }}</p>
+         <p>{{project.source_link}}</p>
+    
+        {% endfor %}
     </div>
 {% endblock content%}
 
