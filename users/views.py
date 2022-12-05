@@ -71,6 +71,17 @@ def registerUser(request):
 
 
 @login_required(login_url='login')
+def account(request):
+    profile=request.user.profile
+    skills = profile.skill_set.all()
+    projects = profile.project_set.all()
+    
+    context={'profile':profile, 'skills':skills, 'projects':projects}
+    return render(request, 'users/account.html', context)
+
+
+
+@login_required(login_url='login')
 def inbox(request):
     profile = request.user.profile
     messageRequests = profile.messages.all()
@@ -93,4 +104,4 @@ def createMessage(request, pk):
     recipient = Profile.objects.get(id=pk)
     form = MessageForm()
     context={'recipient':recipient, 'form':form}
-    return render(request, 'users/message_form.html', context)
+    return render(request, 'users/message_form.html', context) 

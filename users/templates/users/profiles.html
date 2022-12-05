@@ -3,6 +3,18 @@
 {% block content%}
 
 <h3>Welcome</h4>
+
+    <h2>Search for workers</h2>
+    <form action="{% url 'profiles' %}" method="get">
+        
+        <input type="text" name="search_query"  value="{{search_query}}" placeholder="Search by project title">
+        <input type="submit" value="Search">
+    </form>
+
+
+
+
+
 {% for profile in profiles %}
 <a href="{% url 'user-profile' profile.id %}"><p>{{profile.name}}</p></a>
 

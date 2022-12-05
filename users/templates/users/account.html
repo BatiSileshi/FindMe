@@ -1,0 +1,86 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+
+<div style="border: 2px solid blue; width: 300px;">
+
+    <img src="{{profile.profile_image.url}}" alt="Profile image" style="width: 50px; height:50px;">
+    <p>{{profile.name}}</p>
+    <p>{{profile.email}}</p>
+    <p>{{profile.short_intro}}</p>
+    <p>{{profile.bio}}</p>
+    <ul>
+        {% if profile.social_github %}
+        <li>{{profile.social_github}}</li>
+        {%endif%}
+        {% if profile.telegram %}
+        <li>{{profile.telegram}}</li>
+        {%endif%}
+
+        {% if profile.social_youtube %}
+        <li>{{profile.social_youtube}}</li>
+        {%endif%}
+
+        {% if profile.social_website %}
+        <li>{{profile.social_website}}</li>
+        {%endif%}
+    </ul>
+
+    |<a href="">Edit Profile</a> | 
+</div>
+
+<div>
+    <h3>Skills</h3>
+    {% for skill in skills %}
+    <div>
+        <h4>{{skill.name}}</h4>
+        <p>{{skill.description}}</p>
+    </div>
+
+    {% endfor %}
+</div>
+
+
+
+<div>
+    <h3>Projects</h3>
+    {% for project in projects %}
+    <div>
+        <img src="{{project.project_image.url}}" alt="project image" style="width: 50px; height:50px;">
+        <h4>{{project.title}}</h4>
+        <p>{{project.description}}</p>
+        <ul>
+            {% if project.demo_link %}
+            <li>{{project.demo_link}}</li>
+            {%endif%}
+
+            {% if project.source_link %}
+            <li>{{project.source_link}}</li>
+            {%endif%}
+
+        </ul>
+
+
+        <p>{{ project.review_total }} votes</p>
+         <p>{{ project.review_ratio }} % </p>
+    <a href="{% url 'update-project' project.id %}">Update</a> - <a href="{% url 'delete-project' project.id %}">Delete</a> 
+    </div>
+
+
+
+    <div>
+        Tags
+        {% for tag in project.tags.all %}
+
+         <p>{{tag.name}}</p>
+
+          {%endfor%}
+    </div>
+
+
+
+    {% endfor %}
+</div>
+
+{% endblock content%}

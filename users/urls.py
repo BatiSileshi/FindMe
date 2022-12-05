@@ -7,6 +7,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="logout"),
     path('register/', views.registerUser, name="register"),
     path('', views.profiles, name="profiles"),
+    path('account/', views.account, name="account"),
     path('user-profile/<str:pk>/', views.userProfile, name="user-profile"),
     path('inbox/', views.inbox, name="inbox"),
     path('message/<str:pk>/', views.viewMessage, name="message"),

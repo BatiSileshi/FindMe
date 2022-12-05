@@ -18,6 +18,8 @@ def projects(request):
     context={'projects':projects, 'search_query':search_query}
     return render(request, 'projects/projects.html', context)
 
+
+
 def project(request, pk):
     project = Project.objects.get(id=pk)
     tags = project.tags.all()
@@ -40,6 +42,7 @@ def project(request, pk):
     context={'project':project, 'tags':tags, 'reviews':reviews, 'form':form}
     return render(request, 'projects/single_project.html', context)
 
+
 def createProject(request):
     form = ProjectForm()
     if request.method == 'POST':
@@ -50,6 +53,8 @@ def createProject(request):
     context={'form':form}
     return render(request, "projects/project_form.html", context)
 
+
+
 def updateProject(request, pk):
     project = Project.objects.get(id=pk)
     form = ProjectForm(instance=project)
@@ -57,14 +62,15 @@ def updateProject(request, pk):
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('projects')
+            return redirect('account')
     context={'form':form}
     return render(request, "projects/project_form.html", context)
+
 
 def deleteProject(request, pk):
     project = Project.objects.get(id=pk)
     if request.method=='POST':
         project.delete()
-        return redirect('projects')
+        return redirect('account')
     context={'object':project}
     return render(request, 'projects/delete.html', context)

@@ -22,3 +22,6 @@ users
 
 
 1. city [name]
+
+
+- when a profile deleted user  deleted
