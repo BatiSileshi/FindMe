@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import CustomUserCreationForm, MessageForm
+from .forms import CustomUserCreationForm, MessageForm, ProfileForm
 from projects.models import Project
 from .models import Profile, Message
 # Create your views here.
@@ -14,11 +14,37 @@ def profiles(request):
     context={'profiles':profiles}
     return render(request, 'users/profiles.html', context)
 
+
+@login_required(login_url='login')
 def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
     projects = profile.project_set.all()
-    context={'profile':profile, 'projects':projects}
+    skills = profile.skill_set.all()
+    context={'profile':profile, 'projects':projects, 'skills':skills}
     return render(request, 'users/user_profile.html', context)
+
+
+
+@login_required(login_url='login')
+def editProfile(request):
+    profile  = request.user.profile
+
+    form = ProfileForm(instance=profile)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'You have successfully updated your profile')
+            return redirect('account')
+        else:
+            messages.error(request,'There is an error while processing your in put')
+    context = {'form':form}
+    return render(request, 'users/profile_form.html',context)
+
+
+
+
+
 
 def loginUser(request):
     page = 'login'
@@ -44,6 +70,8 @@ def loginUser(request):
             
     return render(request, 'users/login_register.html')
 
+
+
 def logoutUser(request):
     logout(request)
     messages.error(request, 'User was logged out!')
@@ -63,7 +91,7 @@ def registerUser(request):
             messages.success(request, "Account created!")
             
             login(request, user)
-            return redirect('projects')
+            return redirect('edit-profile')
         else:
             messages.error(request, "Error occurred during registration")
     context={'page':page, 'form':form}
@@ -99,9 +127,31 @@ def viewMessage(request, pk):
     context={'message':message}
     return render(request, 'users/message.html', context)
 
-
+@login_required(login_url='login')
 def createMessage(request, pk):
     recipient = Profile.objects.get(id=pk)
     form = MessageForm()
+    
+    try:
+        sender = request.user.profile
+    except:
+        sender = None
+        
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit = False)
+            message.sender = sender
+            message.recipient = recipient
+            
+            if sender:
+                message.name = sender.name
+                message.email = sender.email
+            
+            message.save()
+            
+            messages.success(request, 'Your message was successfully sent')
+            return redirect('user-profile', pk=recipient.id)
+    
     context={'recipient':recipient, 'form':form}
     return render(request, 'users/message_form.html', context) 

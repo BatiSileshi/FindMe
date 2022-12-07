@@ -1,11 +1,11 @@
 from django.forms import ModelForm, widgets
 from django import forms
 from .models import Project, Review
-
+ 
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields='__all__'
+        exclude = ['owner','review_total','review_ratio']
         
         # creating checkbox for many to many fields
         widgets = {

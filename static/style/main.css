@@ -5,3 +5,16 @@ body{
 h3{
     color: blue;
 }
+
+
+.grid-container {
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: auto auto auto; /*Make the grid smaller than the container*/
+    grid-gap: 5px;
+ 
+    padding: 10px;
+  }
+h3{
+    color: red;
+}
