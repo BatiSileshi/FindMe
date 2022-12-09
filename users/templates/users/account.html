@@ -7,7 +7,7 @@
 
     <img src="{{profile.profile_image.url}}" alt="Profile image" style="width: 50px; height:50px;">
     <p>{{profile.name}}</p>
-    <p>{{profile.email}}</p>
+    <p>{{profile.user.email}}</p>
     <p>{{profile.short_intro}}</p>
     <p>{{profile.bio}}</p>
     <ul>
@@ -31,11 +31,13 @@
 </div>
 
 <div>
+  
     <h3>Skills</h3>
+    <a href="{% url 'add-skill' %}">Add Skill</a>
     {% for skill in skills %}
     <div>
         <h4>{{skill.name}}</h4>
-        <p>{{skill.description}}</p>
+        <p>{{skill.description}} - <a href="{% url 'update-skill' skill.id %}">Update</a> - <a href="{% url 'delete-skill' skill.id %}">Delete</a></p>
     </div>
 
     {% endfor %}

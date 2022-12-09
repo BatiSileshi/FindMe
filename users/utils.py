@@ -12,7 +12,6 @@ def searchProfile(request):
     
     profiles = Profile.objects.distinct().filter(
         Q(name__icontains=search_query)|
-        Q(email__icontains=search_query)|
         Q(skill__in=skills)
         
     )

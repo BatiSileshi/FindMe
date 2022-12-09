@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.db.models import Q
 from django.contrib import messages
 from .forms  import ProjectForm, ReviewForm
@@ -7,7 +7,7 @@ from .models import Project, Tag, Review
 from .utils import searchProject
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+# Create your views here.?search_query=tola
 
 
 def projects(request):
@@ -69,6 +69,8 @@ def updateProject(request, pk):
             form.save()
             return redirect('account')
     context={'form':form}
+    if profile != project.owner:
+        return HttpResponseRedirect('handler404')
     return render(request, "projects/project_form.html", context)
 
 
@@ -81,3 +83,20 @@ def deleteProject(request, pk):
         return redirect('account')
     context={'object':project}
     return render(request, 'projects/delete.html', context)
+
+
+
+
+
+
+
+
+
+
+
+############################
+# 404 VIEW
+############################
+
+def page_not_found(request, exception):
+    return render(request, '404.html', status=404)

@@ -31,6 +31,8 @@ class Skill(models.Model):
     
     def __str__(self):
         return str(self.name)
+    class Meta:
+        ordering = ['-created_at']
     
     
 class Message(models.Model):
