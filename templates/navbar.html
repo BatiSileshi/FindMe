@@ -1,13 +1,50 @@
-navbar
+{% load static %}
+ 
 
-<a href="{% url 'profiles' %}">Home</a> |
-<a href="{% url 'projects' %}">Projects</a> |
+<header>
+    <div class="navbar-fixed">
+        <nav class="nav-wraper white">
 
-{% if request.user.is_authenticated %}
+            <div class="container ">
+                <a href="{% url 'profiles' %}" class="brand-logo black-text">FindME </a>
+                <a href="" class="sidenav-trigger" data-target="mobile-menu">
+                    <img src="{% static 'style/images/mobile_menu.png' %}" alt="" class="mobile-menu-img">
+                </a>
 
-<a href="{% url 'inbox' %}"> Inbox</a> |
-<a href="{% url 'account' %}"> Account</a> |
-<a href="{% url 'logout' %}"> Logout</a> |
-{% else %}
-<a href="{% url 'login' %}"> Login</a>
-{% endif %}
+
+                <ul class="right hide-on-med-and-down black-text">
+
+                    <li><a href="{% url 'profiles' %}" class="black-text">Home</a></li>
+                    <li><a href="{% url 'projects' %}" class="black-text">Projects</a></li>
+
+                    {% if request.user.is_authenticated %}
+
+                    <li><a href="{% url 'inbox' %}" class="black-text">Inbox</a></li>
+                    <li><a href="{% url 'account' %}" class="black-text">Account</a></li>
+                    <li><a href="{% url 'logout' %}" class="white-text btn red ">Logout</a></li>
+
+                    {% else %}
+                    <li><a href="{% url 'login' %}" class="white-text btn light-blue ">Login</a></li>
+
+                    {% endif %}
+                </ul>
+
+              
+
+            </div>
+        </nav>
+    </div>
+</header>
+
+<ul class="sidenav white" id="mobile-menu">
+    <li><a href="{% url 'profiles' %}" class="black-text">Home</a></li>
+    <li><a  href="{% url 'projects' %}" class="black-text">Projects</a></li>
+
+    {% if request.user.is_authenticated %}
+    <li><a href="{% url 'inbox' %}" class="black-text">Inbox</a></li>
+    <li><a href="{% url 'account' %}" class="black-text">Account</a></li>
+    <li><a href="{% url 'logout' %}" class="white-text btn red ">Logout</a></li>
+    {% else %}
+    <li><a href="{% url 'login' %}" class="white-text btn light-blue">Login</a></li>
+    {% endif %}
+</ul>

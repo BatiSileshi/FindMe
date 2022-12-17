@@ -2,11 +2,16 @@
 <html>
 
 <head> 
-<link rel="stylesheet", type="text/css", media="screen", href='{% static "style/main.css" %}'>
+<link rel="stylesheet", type="text/css", media="screen", href='{% static "style/css/style.css" %}'>
+ <link type="text/css" rel="stylesheet" href='{% static "style/materialize-v1.0.0/materialize/css/materialize.css" %}' media="screen,projection" />
 </head>
 
 <body> 
     {% include 'navbar.html' %}
+
+
+
+
      
     {% if messages %}
     <ul class="messages"> 
@@ -26,5 +31,16 @@
 
 
     {% include 'footer.html' %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src='{% static "style/materialize-v1.0.0/materialize/js/materialize.js" %}'>
+</script>
+<script>
+    $(document).ready(function() {
+        $('.sidenav').sidenav();
+    })
+</script>
+
 </body>
 </html>

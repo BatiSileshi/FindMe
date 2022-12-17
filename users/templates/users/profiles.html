@@ -2,22 +2,66 @@
 
 {% block content%}
 
-<h3>Welcome</h4>
 
-    <h2>Search for workers</h2>
-    <form action="{% url 'profiles' %}" method="get">
+
+
+    <div class="hero">
+        <div class="container hero1">
+           <h3 class="white-text">Welcome to FindME</h3>
+           <h4 class="white-text">Find best worker that fits your need</h4>
+        </div>
+      
+        <div class="container">
+      <form action="{% url 'profiles' %}" class="row" method="get">
+          <input type="text"  name="search_query"  value="{{search_query}}" placeholder="  Search worker by its name or skill" class="col s10 grey lighten-2">
+          <input type="submit" value="Search" class="col s2 search white-text">
+      </form>
+      </div>
+      
+      </div>
+
+
+
+
+  <!-- PROFILE SECTION -->
+  <section class="profile-section"> 
+    <div class="grid-container">
+        {% for profile in profiles %}
+        <a href="{% url 'user-profile' profile.id %}" style="color: black;">
+        <div class="col s12 m6 l4 profile">
+            <div class="row profile-1">
+                <div class="col s4 m4 l4 profile-img">
+                 <img src="{{profile.profile_image.url}}" alt="{{profile.name}}" >
+                </div>
+    
+                <div class="col s8 m8 l8">
+                  <h6>{{profile.name}}</h6>
+                  <p>{{profile.short_intro}}
+                  </p>
+    
+                </div>
+                <div class="center">
+                    {% for skill in profile.skill_set.all%}
+                   
+                    <div class="chip"> {{skill.name}} </div>
+                
+                    {% endfor %}
+                </div>
+                
+            </div>   
+            </div>
+
+        </a>
+            {% endfor %}
+        </div>
         
-        <input type="text" name="search_query"  value="{{search_query}}" placeholder="Search by name of worker or skill ">
-        <input type="submit" value="Search">
-    </form>
+    
+    </div>
+    
+    </section> 
 
 
 
 
-
-{% for profile in profiles %}
-<a href="{% url 'user-profile' profile.id %}"><p>{{profile.name}}</p></a>
-
-{% endfor %}
 {% endblock content%}
 

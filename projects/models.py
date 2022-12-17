@@ -41,8 +41,7 @@ class Project(models.Model):
 class Review(models.Model):
     REVIEW_TYPE=(
         ('very_good', 'Positive Review'),
-        ('good', 'Negative Review'),
-        
+        ('good', 'Negative Review'),    
     )
     owner=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     project=models.ForeignKey(Project, on_delete=models.CASCADE)

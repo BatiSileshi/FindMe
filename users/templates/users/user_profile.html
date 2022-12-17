@@ -1,79 +1,114 @@
+
+
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content%}
 
-<h3>Welcome</h3>
-<div style="border-left: 5px solid;">
-<p>{{profile.name}} </p>
-<p>{{profile.email}} </p>
-<p>{{profile.short_intro}} </p>
-<img src="{{profile.profile_image.url}} " alt="">
 
-{% if request.user.profile != profile%}
-<a href="{% url 'create-message' profile.id %}"><button>Send Message</button></a>
-{% endif %}
-</div>
+<!-- USER PROFILE SECTION -->
 
+<section>
+    <div class="row profile-all ">
+   
+        <div class="col s12 m3 l3 profile-img user-profile center" >
+            <img src="{{profile.profile_image.url}}" alt="{{Profile.name}}" >
+            <h5>{{profile.name}}</h5>
+            <p>{{profile.short_intro}}</p>
 
 
-<div class="grid-container">
-    {% for project in projects %}
-    <div  >
-        <img src="{{project.project_image.url}}" alt="project image" style="width: 50px; height:50px;">
-        <h4>{{project.title}}</h4>
-        <p>{{project.description}}</p>
-        <ul>
-            {% if project.demo_link %}
-            <li>{{project.demo_link}}</li>
-            {%endif%}
-
-            {% if project.source_link %}
-            <li>{{project.source_link}}</li>
-            {%endif%}
-
-        </ul>
-
-
-        <p>{{ project.review_total }} votes</p>
-         <p>{{ project.review_ratio }} % </p>
-
-
-
-
-         <div>
-            Tags
-            {% for tag in project.tags.all %}
+            <ul class="row">
+                {% if profile.telegram %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.telegram}}"> <img src="{% static 'style/images/telegram_icon.png' %}" alt="~" ></a></li>
+                {%endif%}
     
-             <p>{{tag.name}}</p>
-    
-              {%endfor%}
+                {% if profile.social_youtube %}
+                <li class="col s2 m2 l2 social-link"> <a href="{{profile.social_youtube}}">
+                    <img src="{% static 'style/images/youtube_icon.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_github %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_github}}">
+                    <img src="{% static 'style/images/githubicon.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_website %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_website}}">
+                    <img src="{% static 'style/images/website_icon.jpg' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_linkedid %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_linkedin}}">
+                    <img src="{% static 'style/images/linked_in.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_facebook %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_facebook}}">
+                    <img src="{% static 'style/images/facebook_icon.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+            </ul>
+
+            {% if request.user.profile != profile%}
+
+              <a href="{% url 'create-message' profile.id %}"><button class="send-message">Send message</button> </a> 
+
+            {% endif %}
         </div>
 
-    </div>
+       
+        <div class="col s12 m9 l9">
+            <h4 class="brand-logo center">ABOUT ME</h4>
 
-
-    {% endfor %}
-</div>
-
-
-
+            <p>{{profile.bio}}</p>
 
 
 
 
-    <div>
-        <h3>Skills</h3>
+     <h4 class="brand-logo center">MY SKILLS </h4>
+
+
+     <ul>
+
         {% for skill in skills %}
-        <div>
-            <h4>{{skill.name}}</h4>
-            <p>{{skill.description}}</p>
+
+        <li><h6> <img src="{% static 'style/images/ok--v3.png' %}" alt="" class="skill-img"> {{skill.name}}</h6>
+        <p>{{skill.description}}</p>
+        </li>
+        
+        {%endfor%}
+        
+     <h4 class="brand-logo center">MY PROJECTS </h4>
+
+
+
+     <div class="row ">
+        {% for project in projects %}
+        <div class="col s12 m6 l4">
+            <div class="card ">
+                <div class="card-image"> <img src="{{project.project_image.url}}" alt="{{project.title}}" ></div>
+                <div class="card-content black-text">
+    
+                    <span class="card-title black-text"><b>{{project.title}}</b></span>
+                    
+                   <p>{{project.description}}</p>
+                </div>
+            </div>
         </div>
+        {%endfor%}
     
-        {% endfor %}
+
+     </div>
     </div>
-    
+    </div>
+ </section>
 
-
+<!-- END OF USER PROFILE SECTION  -->
 
 
 
