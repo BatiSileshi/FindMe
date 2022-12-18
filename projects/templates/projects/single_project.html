@@ -1,54 +1,88 @@
 {% extends 'main.html' %}
 
 {% block content%}
-<h2>Single projects</h2>
-<div>
-    {{ project.title }}
-    {{ project.owner.name }}
-<img src="{{ project.project_image.url }}">
-<div style="border: solid 3px blue;">
-{{ project.review_total }} votes
-{{ project.review_ratio }} %
-</div>
-{% for review in reviews %}
-<div style="border: solid 3px;">
-<p> {{review.body|linebreaksbr}}</p>
-<p>Commented by: {{review.owner.name}} </p>
-</div>
-{% endfor %}
+
+ <!-- SINGLE PROJECT SECTION -->
+
+ <section class="single-project">
+  <div class="container">
+   
+      <img src="{{project.project_image.url}}" alt="{{project.title}}" class="single-project-img">
+      <h5> <b> {{project.title}} </b></h5>
+      <p>By {{project.owner.name}}</p>
+      <p>{{project.description}}</p>
+
+      {% if project.demo_link %}
+      <p>{{project.demo_link}}</p>
+      {% endif %}
+
+      {% if project.source_link %}
+      <p>{{project.source_link}}</p>
+      {% endif %}
+
+      <p>{{ project.review_total }} totla votes</p>
+      <p>{{project.review_ratio}} %</p>
+
+      {% for tag in tags %}
+       <p class="chip"> {{tag.name}} </p>
+      {% endfor %}
+
+      <h4 class="brand-logo center">REVIEWS</h4>
+
+      {% for review in reviews %}
+      <div class="review">
+      <p> {{review.body}}</p>
+      <p>By {{review.owner.name}}</p>
+      </div>
+
+      {% endfor %}
+
+
+      <h4 class="brand-logo center">GIVE REVIEW</h4>
+      {% if request.user.profile.id in project.reviewers %}  
+      <p>You have already submitted your review for this project.</p>
+    
+      {% elif request.user.profile == project.owner %}
+    
+      <p>You can not review your own project.</p>
+    
+      {% elif request.user.is_authenticated %}
+
+      <form class="review-form" action="{% url 'project' project.id %}" method="POST" >
+        {% csrf_token %}
+        {% for field in form %}
+          <label style="font-size: medium;">
+         {{field.label}}
+          </label>
+         {{field}}
+
+         {% endfor %}
+     
+          <div class="center">
+              <input type="submit" name="submit" value="Comment" class="btn light-blue">
+          </div>
+          <br>
+      
+      </form>
+    
+    {% else %}
+    <a href="{% url 'login' %}?next={{request.path}}">Please login to leave a review.</a>
+    
+    {% endif %}
 
 
 
-{% for tag in tags %}
 
-<p> {{tag}} </p>
-{% endfor %}
-  
 
-<div style="border: solid  red;">
-  {% if request.user.profile.id in project.reviewers %}  
-  <p>You have already submitted your review for this project.</p>
+  </div>
+</section>
 
-  {% elif request.user.profile == project.owner %}
 
-  <p>You can not review your own project.</p>
 
-  {% elif request.user.is_authenticated %}
+<!-- END OF SINGLE PROJECT SECTION  -->
 
-<form action="{% url 'project' project.id %}" method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-<label>{{field.label}}</label>
- {{field}}
 
- {% endfor %}
- <input type="submit" value="Add Comment">
-</form>
 
-{% else %}
-<a href="{% url 'login' %}?next={{request.path}}">Please login to leave a review.</a>
 
-{% endif %}
-</div>
-</div>
+
 {% endblock content%}

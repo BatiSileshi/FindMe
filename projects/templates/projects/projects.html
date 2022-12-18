@@ -1,20 +1,53 @@
 {% extends 'main.html' %}
 
+
+
 {% block content%}
 
-<h2>Serach for projects</h2>
-<form action="{% url 'projects' %}" method="get">
-    <label for="formInput"> Search by projects</label>
-    <input type="text" name="search_query"  value="{{search_query}}" placeholder="Search by project title">
-    <input type="submit" value="Search">
-</form>
 
 
-<h2>Projects</h2>
-{% for project in projects %}
-<p> <a href="{% url 'project' project.id %}">{{project.title}} </a></p>
+<div class="hero">
+    <div class="container hero1">
+       <h3 class="white-text">Welcome to FindME</h3>
+       <h4 class="white-text">Search for projects</h4>
+    </div>
+  
+    <div class="container">
+  <form action="{% url 'projects' %}" method="get" class="row">
+      <input type="text" name="search_query"  value="{{search_query}}" placeholder="  Search a project by its name or tag" class="col s10 grey lighten-2">
+      <input type="submit" value="Search" class="col s2 search white-text">
+  </form>
+  </div>
+  
+  </div>
 
-{%endfor%}
 
 
-{% endblock content%}
+ <!-- PROJECTS SECTION -->
+
+ <div class="row profile-all">
+    {% for project in projects %}
+    <a href="{% url 'project' project.id %}"> 
+        <div class="col s12 m6 l4 ">
+         <div class="card ">
+             <div class="card-image"> <img src="{{project.project_image.url}}" alt="{{project.title}}" ></div>
+             <div class="card-content black-text">
+ 
+                 <span class="card-title black-text"><b>{{project.title}}</b></span>
+                 <h6>{{project.owner.name}}</h6>
+                <p>{{project.description}}</p>
+ 
+                {% for tag in project.tags.all %}
+                <div class="chip">
+                    {{tag.name}}
+               </div>
+               {% endfor %}
+             </div>
+         </div>
+     </div>
+    </a>
+   {% endfor %}
+ </div>
+ <!-- END PROJECTS SECTION  -->
+
+ {% endblock content%}

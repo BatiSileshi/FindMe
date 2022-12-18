@@ -2,31 +2,63 @@
 
 {% block content%}
 
-<p><a href="{% url 'user-profile' recipient.id %}">Back</a>
 
- <form action="" method="POST">
-  {% csrf_token %}
-  {% if request.user.is_authenticated == False %}
-  <div>
-    <label for="">{{form.name.label}}</label>
-    {{form.name}}
+
+ <!-- SEND MESSAGE SECTION -->
+
+ <section class="chat">
+
+  <h4 class="brand-logo center">SEND MESSAGE</h4>
+  <br>
+  <br>
+  <div class="container">
+
+    <p><a href="{% url 'user-profile' recipient.id %}">Back</a></p>
+
+
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% if request.user.is_authenticated == False %}
+
+
+     <label for="" style="font-size: large;">{{form.name.label}}
+      
+      {{form.name}}
+     </label>
+
+
+     <label for="" style="font-size: large;">{{form.email.label}}
+      {{form.email}}
+     </label>
+
+     {% endif %}
+
+     <label for="" style="font-size: large;">{{form.subject.label}}
+      {{form.subject}}
+    </label>
+
+     <label for=""  style="font-size: large;">{{form.body.label}}</label>
+     {{form.body}}
+
+   
+     <div class="center">
+      <input type="submit" name="submit" value="Send" class="btn light-blue">
   </div>
-  <div>
-    <label for="">{{form.email.label}}</label>
-    {{form.email}}
+
+    </form>
+    <br>
+    <br>
+
   </div>
-  {% endif %}
-  <div>
-    <label for="">{{form.subject.label}}</label>
-    {{form.subject}}
-  </div>
-  <div>
-    <label for="">{{form.body.label}}</label>
-    {{form.body}}
-  </div>
-  <!-- {{form.as_p}} -->
-    <input type="submit" value="Send">
- </form>
+
+</section>
+
+
+
+<!-- END OF SEND MESSAGE SECTION  -->
+
+
+
 
 
 

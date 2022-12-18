@@ -1,11 +1,29 @@
 {% extends 'main.html' %}
 
 {% block content%}
-<div><a href="{% url 'inbox' %}">Back</a></div>
-<h3>Message detail</h4>
-  <p>Subject: {{message.subject}}</p>
-  <p>Body: {{message.body|linebreaksbr}}</p>
-  <p>By: {{message.name}}</p>
-  <p>Date: {{message.created_at}}</p>
+
+
+ <!-- MESSAGE SECTION -->
+
+ <section class="inbox">
+
+  <h4 class="brand-logo center">MESSAGE BODY</h4>
+  <div class="container">
+    <div><a href="{% url 'inbox' %}">Back</a></div>
+      <h6>{{message.subject}}</h6>
+      <p><i>{{message.created_at}}</i></p>
+      <p>{{message.body|linebreaksbr}}?</p>
+
+      <p>By {{message.name}}</p>
+      
+
+  </div>
+
+</section>
+
+
+
+<!-- END OF INBOX SECTION  -->
+
 {% endblock content%}
 

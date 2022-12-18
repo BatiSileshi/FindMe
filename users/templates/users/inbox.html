@@ -2,29 +2,32 @@
 
 {% block content%}
 
-<h3>Inbox</h4>
+ <!-- INBOX SECTION -->
 
-    <p>New messages ({{unreadCount}})</p>
-<div style="border: solid 4px;">
- {% for message in messageRequests %}
-{% if message.is_read == False %}
+ <section class="inbox">
 
-<li style="background-color: red;">
-    {% else %}  
-    <li style="background-color:blue;">
-    {% endif %}
- <a href="{% url 'message' message.id %}" >
-    <span>{{message.name}}</span>
-        <span>{{message.subject}}</span>
-        <span>{{message.created_at}}</span>
+    <h4 class="brand-logo center">INBOX</h4>
+    <div class="container">
+    <h5>New Messages ({{unreadCount}}) </h5>
+    
+        <ul class="messages">
 
-    </a>
-</li>
-    <hr>
-    {% endfor %}
-</div>
+            {% for message in messageRequests %}
+            {% if message.is_read == False %}
+
+            <a href="{% url 'message' message.id %}" ><li class="message unread">{{message.name}},  <span>{{message.created_at}}</span></li></a>
+            {% else %}
+            <a href="{% url 'message' message.id %}" ><li class="message">{{message.name}}, <span>{{message.created_at}}</span></li></a>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+</section>
 
 
+
+<!-- END OF INBOX SECTION  -->
 
 
 
