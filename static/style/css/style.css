@@ -190,7 +190,6 @@ background-color: #292B2E;
 
 
 
-
 @media screen and (max-width: 994px) {
     .grid-container {
         grid-template-columns: 1fr 1fr;

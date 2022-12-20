@@ -60,17 +60,17 @@ def logoutUser(request):
     return redirect('login')
 
 def registerUser(request):
-    profile = request.user.profile
+    
     page = 'register'
     form= CustomUserCreationForm()
     
     if request.method=='POST':
         form=CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.email=profile.email
-            user.save()
+            user = form.save()
+            # user.username = user.username.lower()
+            # user.email=profile.email
+            # user.save()
             
             messages.success(request, "Account created!")
             
