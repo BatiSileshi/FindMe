@@ -6,6 +6,8 @@ from .forms  import ProjectForm, ReviewForm
 from .models import Project, Tag, Review
 from .utils import searchProject
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.?search_query=tola
 
@@ -54,7 +56,10 @@ def createProject(request):
             proj.owner = profile
             proj.save()
             return redirect('projects')
-    context={'form':form}
+              
+
+        
+    context={'form':form} 
     return render(request, "projects/project_form.html", context)
 
 

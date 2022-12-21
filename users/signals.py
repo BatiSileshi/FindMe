@@ -39,6 +39,18 @@ def editProfile(sender, instance, created, **kwargs):
         user.save()
         
         
+        subject = ' Welcome to FindME platform!'
+        message = ' You have successfully updated your profile'
+         
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [user.email],
+            fail_silently =False,
+        )
+        
+        
 def deleteUser(sender, instance, **kwargs):
     user=instance.user
     user.delete()

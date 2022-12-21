@@ -28,14 +28,14 @@
  <div class="row profile-all">
     {% for project in projects %}
     <a href="{% url 'project' project.id %}"> 
-        <div class="col s12 m6 l4 ">
-         <div class="card ">
+        <div class="col s12 m6 l4" >
+         <div class="card " style="height: 450px;">
              <div class="card-image"> <img src="{{project.project_image.url}}" alt="{{project.title}}" ></div>
              <div class="card-content black-text">
  
                  <span class="card-title black-text"><b>{{project.title}}</b></span>
-                 <h6>{{project.owner.name}}</h6>
-                <p>{{project.description}}</p>
+                 <h6>By {{project.owner.name}}</h6>
+                <!-- <p>{{project.description}}</p> -->
  
                 {% for tag in project.tags.all %}
                 <div class="chip">
