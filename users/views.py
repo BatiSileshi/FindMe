@@ -177,6 +177,8 @@ def inbox(request):
     context={'messageRequests':messageRequests, 'unreadCount':unreadCount}
     return render(request, 'users/inbox.html', context)
 
+
+
 @login_required(login_url='login')
 def viewMessage(request, pk):
     profile = request.user.profile
@@ -186,6 +188,8 @@ def viewMessage(request, pk):
         message.save()
     context={'message':message}
     return render(request, 'users/message.html', context)
+
+
 
 @login_required(login_url='login')
 def createMessage(request, pk):

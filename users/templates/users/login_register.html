@@ -4,6 +4,8 @@
 
 {% if page == 'register' %}
 <div class="container">
+   <br>
+   <h4>Register</h4>
    <form action="{% url 'register' %}" method="POST">
     {% csrf_token %}
 <div>
@@ -33,7 +35,7 @@
 
 <br>
 <div class="container">
-<h2>Login</h2>
+<h4>Login</h4>
 <form action="" method="POST">
     {% csrf_token %}
     <label for="">Username
@@ -45,9 +47,12 @@
    </label>
       
    
-    <input type="submit" value="Login">
-    <a href="{% url 'register' %}">Sign up</a>
+    <input type="submit" value="Login">  | 
+
+    <a href="{% url 'reset_password' %}">Forget password?</a>
    </form>
+   <br>
+   <p>   Don't have an account?  <a href="{% url 'register' %}">Sign up</a></p>
 
 </div>
 {%endif%}
