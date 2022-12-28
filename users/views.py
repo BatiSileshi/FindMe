@@ -7,12 +7,41 @@ from .forms import CustomUserCreationForm, MessageForm, ProfileForm, SkillForm
 from projects.models import Project
 from .models import Profile, Message
 from .utils import searchProfile
+import requests
+import json
 # Create your views here.
+
+api_key = '3c22e730d3cb43f5bc6d9d492f80f9f8'
+
+api_url = 'https://ipgeolocation.abstractapi.com/v1/?api_key=3c22e730d3cb43f5bc6d9d492f80f9f8' + api_key
+
+def get_ip_geolocation_data(ip_address):
+    response = requests.get("https://ipgeolocation.abstractapi.com/v1/?api_key=3c22e730d3cb43f5bc6d9d492f80f9f8")
+    print(ip_address)
+    # print(response.content)
+    response = requests.get(api_url)
+
+    return response.content
+
 
 def profiles(request):
     profiles, search_query = searchProfile(request)
     
-    context={'profiles':profiles, 'search_query':search_query}
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+        
+    geolocation_json = get_ip_geolocation_data(ip)
+
+    geolocation_data = json.loads(geolocation_json)
+
+    # country = geolocation_data['country']
+
+    # region = geolocation_data['region']
+    
+    context={'profiles':profiles, 'search_query':search_query, 'ip':ip}
     return render(request, 'users/profiles.html', context)
 
 

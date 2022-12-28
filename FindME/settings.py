@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     
     'projects.apps.ProjectsConfig',
     'users.apps.UsersConfig', 
-    'rest_framework'
+    'rest_framework',
+    
 ]
 
 MIDDLEWARE = [
@@ -130,16 +131,32 @@ EMAIL_HOST_PASSWORD = 'fmdojvkjkungeifw'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+
+# URL where the user can access your static files from in the browser. The default is /static/, 
+# which means your files will be available at http://127.0.0.1:8000/static/ in development mode
+
 STATIC_URL = 'static/'
+
+# Similar to the STATIC_URL, this is the URL where users can access media files.
 MEDIA_URL = ''
 
+
+# By default, static files are stored at the app-level at <APP_NAME>/static/. 
+# The collectstatic command will look for static files in those directories. 
+# You can also tell Django to look for static files in additional locations with STATICFILES_DIRS
 STATICFILES_DIRS =[
     BASE_DIR / 'static'
 ]
 
+#this MEDIA_ROOT used in production, when debug=False
+# The absolute path to the directory where your Django application will serve your media files from.
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
+
 #this STATIC_ROOT used in production, when debug=False
+# The absolute path to the directory where your Django application will serve your static files from. 
+# When you run the collectstatic management command,
+# it will find all static files and copy them into this directory.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
