@@ -25,3 +25,5 @@ users
 
 
 - when a profile deleted user  deleted
+
+* providing projects image templates
