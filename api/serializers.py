@@ -13,7 +13,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = '__all__' 
         
         
 class ReviewSerializer(serializers.ModelSerializer):
