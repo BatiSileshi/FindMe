@@ -1,7 +1,9 @@
 from django.forms import ModelForm
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Message, Profile, Skill
+from django.forms import ClearableFileInput
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -18,7 +20,13 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        exclude = ['user']
+        exclude = ['user', 'is_cv_approved', 'is_hired']
+        widgets = {
+            'cv': ClearableFileInput(attrs={'multiple': True}),
+        }
+        
+        
+        
 
 
 class MessageForm(ModelForm):

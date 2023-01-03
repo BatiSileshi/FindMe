@@ -11,17 +11,6 @@ import requests
 import json
 # Create your views here.
 
-# api_key = '3c22e730d3cb43f5bc6d9d492f80f9f8'
-
-# api_url = 'https://ipgeolocation.abstractapi.com/v1/?api_key=3c22e730d3cb43f5bc6d9d492f80f9f8' + api_key
-
-# def get_ip_geolocation_data(ip_address):
-#     response = requests.get("https://ipgeolocation.abstractapi.com/v1/?api_key=3c22e730d3cb43f5bc6d9d492f80f9f8")
-#     print(ip_address)
-#     # print(response.content)
-#     response = requests.get(api_url)
-
-#     return response.content
 
 
 def profiles(request):
@@ -45,6 +34,9 @@ def profiles(request):
     context={'profiles':profiles, 'search_query':search_query}
     return render(request, 'users/profiles.html', context)
 
+
+def work_with_us(request):
+    return render(request, 'users/work_with_us.html')
 
 def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
@@ -252,3 +244,4 @@ def createMessage(request, pk):
     #     return HttpResponseRedirect("handler404")
     return render(request, 'users/message_form.html', context) 
 
+ 

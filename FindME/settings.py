@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     
     'projects.apps.ProjectsConfig',
     'users.apps.UsersConfig', 
+    'company.apps.CompanyConfig',
+    'system_admin.apps.SystemAdminConfig',
     'rest_framework',
     
 ]

@@ -17,6 +17,8 @@
                     <li><a href="{% url 'profiles' %}" class="black-text">Home</a></li>
                     <li><a href="{% url 'projects' %}" class="black-text">Projects</a></li>
 
+                    <li><a href="{% url 'work-with-us' %}" class="black-text">Need employee</a></li>
+
                     {% if request.user.is_authenticated %}
 
                     <li><a href="{% url 'inbox' %}" class="black-text">Inbox</a></li>
@@ -39,6 +41,8 @@
 <ul class="sidenav white" id="mobile-menu">
     <li><a href="{% url 'profiles' %}" class="black-text">Home</a></li>
     <li><a  href="{% url 'projects' %}" class="black-text">Projects</a></li>
+
+    <li><a href="{% url 'work-with-us' %}" class="black-text">Need employee</a></li>
 
     {% if request.user.is_authenticated %}
     <li><a href="{% url 'inbox' %}" class="black-text">Inbox</a></li>

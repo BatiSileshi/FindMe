@@ -58,6 +58,10 @@
            <a href="{% url 'edit-profile' %}">  <div class="chip blue lighten-3"> Update Profile </div>
         </div></a>
        
+        <div>
+            <h3>My CV</h3>
+            <a href="{{ profile.cv.url }}">{{ profile.cv }}</a>
+        </div>
  <div class="col s12 m9 l9">
            <h4 class="brand-logo center"> MY SKILLS </h4>
            <a href="{% url 'add-skill' %}">Add Skill</a>
@@ -80,6 +84,8 @@
 
 </ul>
 </div>
+
+
 
 </div>
 

@@ -27,3 +27,15 @@ users
 - when a profile deleted user  deleted
 
 * providing projects image templates
+
+# employee
+1. when they send us their cv, then FindME admin will check and approve it
+2. After approval they can post their skills and works 
+3. Yoo qacarame profile isaa irratti qacarameera jedha (is_hired=True)
+
+
+# company
+1. Company will register to ourplatform 
+2. They search for employees and can hire them
+3. Company nama barbaade sana invite godha
+4. Hired jedhee declare godhaaf

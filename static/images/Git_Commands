@@ -1,0 +1,83 @@
+GIT COMMANDS
+# to change branch
+git checkout -b branchname
+#to commit and push
+1. git status
+2. git add .
+3. git commit -m "comit"
+4. git push origin branchname
+
+5. Cloning specific branch: 
+   git clone -b specific_branch_name --single-branch git_url
+   
+   
+ git push -u origin customer_branch
+
+
+======================
+Git Commands
+
+git log                     -> viewing commit story
+git log --oneline           -> viewing commit story on one line
+
+git checkout commitid       -> used to checkout specific commit (changes on text editor)
+git revert commitid         ->  undoing commit
+git reset commitid          -> jumping on some commits and re setting commit 
+git reset commitid --hard   -> permanently deleting commit
+
+
+git branch baranchname      ->creates new branch
+git branch -a               -> lists all of my branch
+git branch -d branchname    ->deleting branch after merging (first checkout to master)
+git branch -D branchname    ->deleting branch (first checkout to master)
+
+git checkout branchname     ->switch to new branch
+git checkout -b branchname  ->creates and switch to new branch
+git merge branchname        ->merging branch (first chechkout to the branch you want to merge to)
+
+git push repolink branchnametopushon     ->pushing from local machine to repository
+
+git remote add origin repolink                   -> giving allies instead of pasting repo link(onky when pushing from lical machine)
+
+git push origin branchnametopushon       -> pushing
+
+collaborating
+git pull origin master        ->pulling master before before doing any change--if others changed it
+
+
+
+=======================
+to accec manyto many field
+in templates:
+{% for bus in route.bus.all %}{{ bus }}<br/>{% endfor %}</h3>
+
+
+in views:
+bus=route.bus.all()   baasii route hundasaa
+
+sybroute_bus=subrotebusadmin.sybroute_bus.all()
+subroute_busii subrotebusadmin hundasaa
+
+==========
+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
+
+
+async --- send multiple request to server
+sync  --- send only one request to server at a time
+=============
+
+
+
+https://t.me/Qarree11
+
+https://t.me/danny4677
+
+https://t.me/KMN12345medianetwork
+
+https://t.me/My_Oromia
+
+https://t.me/ABDII_SABAA
+
+https://t.me/srsju
+
+
