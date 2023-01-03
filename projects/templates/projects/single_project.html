@@ -6,10 +6,11 @@
 
  <section class="single-project">
   <div class="container">
-   
+     {% if project.project_image %}
       <img src="{{project.project_image.url}}" alt="{{project.title}}" class="single-project-img">
+      {% endif %}
       <h5> <b> {{project.title}} </b></h5>
-      <p>By {{project.owner.name}}</p>
+      <p>By <a href="{% url 'user-profile' project.owner.id %}">{{project.owner.name}}</a></p>
       <p>{{project.description}}</p>
 
       {% if project.demo_link %}

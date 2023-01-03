@@ -12,7 +12,9 @@
     <div class="row profile-all ">
    
         <div class="col s12 m3 l3 profile-img user-profile center" >
+            {% if profile.profile_image %}
             <img src="{{profile.profile_image.url}}" alt="{{Profile.name}}" >
+            {% endif %}
             <h5>{{profile.name}}</h5>
             <p>{{profile.short_intro}}</p>
 
@@ -87,11 +89,18 @@
 
 
 
-     <div class="row ">
+     <div class="row "> 
         {% for project in projects %}
         <div class="col s12 m6 l4">
             <div class="card ">
-                <div class="card-image"> <img src="{{project.project_image.url}}" alt="{{project.title}}" ></div>
+                
+                <div class="card-image"> 
+                    {% if project.project_image %}
+                    <img src="{{project.project_image.url}}" alt="{{project.title}}" >
+                    {% endif %}
+                
+                </div>
+                
                 <div class="card-content black-text">
     
                     <span class="card-title black-text"><b>{{project.title}}</b></span>

@@ -13,8 +13,11 @@
       <h6>{{message.subject}}</h6>
       <p><i>{{message.created_at}}</i></p>
       <p>{{message.body|linebreaksbr}}?</p>
-
+      {% if message.sender %}
+      <p>By <a href="{% url 'user-profile' message.sender.id %}">{{message.name}}</a></p>
+      {% else %}
       <p>By {{message.name}}</p>
+      {% endif %}
       
 
   </div>

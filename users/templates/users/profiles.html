@@ -20,7 +20,7 @@
       
       </div>
 
-      You are visiting from: {{ip}} - {{country}} - {{region}}
+  
 
 
   <!-- PROFILE SECTION -->
@@ -30,9 +30,11 @@
         <a href="{% url 'user-profile' profile.id %}" style="color: black;">
         <div class="col s12 m6 l4 profile">
             <div class="row profile-1">
+                {% if profile.profile_image %}
                 <div class="col s4 m4 l4 profile-img">
                  <img src="{{profile.profile_image.url}}" alt="{{profile.name}}" >
                 </div>
+                {% endif %}
     
                 <div class="col s8 m8 l8">
                   <h6>{{profile.name}}</h6>

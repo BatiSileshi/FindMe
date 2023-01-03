@@ -30,9 +30,11 @@
     <a href="{% url 'project' project.id %}"> 
         <div class="col s12 m6 l4" >
          <div class="card " style="height: 450px;">
+            {% if project.project_image %}
              <div class="card-image"> <img src="{{project.project_image.url}}" alt="{{project.title}}" ></div>
+             {% endif %}
              <div class="card-content black-text">
- 
+  
                  <span class="card-title black-text"><b>{{project.title}}</b></span>
                  <h6>By {{project.owner.name}}</h6>
                 <!-- <p>{{project.description}}</p> -->

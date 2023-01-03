@@ -50,12 +50,23 @@ def createProject(request):
     profile = request.user.profile
     form = ProjectForm()
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', " ").split()
+        
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             proj = form.save(commit=False)
             proj.owner = profile
+            
             proj.save()
-            return redirect('projects')
+            
+            # checking if tag written by user is created and then adding into database
+            for tag in newtags:
+                tag, created = Tag.objects.get_or_create(name=tag)
+                proj.tags.add(tag)
+                
+                
+                
+            return redirect('account')
               
 
         
@@ -69,10 +80,18 @@ def updateProject(request, pk):
     project = profile.project_set.get(id=pk)
     form = ProjectForm(instance=project)
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', " ").split()
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
-            form.save()
+            project = form.save()
+            
+            # checking if tag written by user is created and then adding into database
+            for tag in newtags:
+                tag, created = Tag.objects.get_or_create(name=tag)
+                project.tags.add(tag)
+                # project.tags.lower()
             return redirect('account')
+        
     context={'form':form}
     if profile != project.owner:
         return HttpResponseRedirect('handler404')

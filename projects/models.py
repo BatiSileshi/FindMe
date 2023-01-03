@@ -1,10 +1,12 @@
 from django.db import models
 import uuid
 from users.models import Profile
+
+from .fields import CaseInsensitiveCharField
 # Create your models here.
 
 class Project(models.Model):
-    owner=models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
+    owner=models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE)
     title=models.CharField(max_length=200, null=True)
     description=models.TextField(null=True)
     project_image=models.ImageField(null=True, blank=True, default="default.png")
@@ -21,7 +23,19 @@ class Project(models.Model):
     
     class Meta: 
         ordering = ['-review_ratio', '-review_total',  'title']
-        
+       
+       
+    # checking if a user deletes his project image  -- if user deletes then while rendering a page with that project, there will be issue
+    # @property
+    # def imageURL(self):
+    #     try:
+    #         url = self.project_image.url
+    #     except:
+    #         url = ''
+    #     return url
+    
+     
+    @property
     def reviewers(self):
         queryset = self.review_set.all().values_list('owner__id', flat=True) 
         return queryset  
@@ -56,8 +70,12 @@ class Review(models.Model):
     def __str__(self):
         return self.value
     
+    
+
+
+
 class Tag(models.Model):
-    name=models.CharField(null=True, max_length=500)
+    name=CaseInsensitiveCharField(null=True, max_length=500)
     created_at=models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     

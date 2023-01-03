@@ -221,7 +221,7 @@ def viewMessage(request, pk):
 
 
 
-@login_required(login_url='login')
+
 def createMessage(request, pk):
     recipient = Profile.objects.get(id=pk)
     form = MessageForm()
@@ -248,7 +248,7 @@ def createMessage(request, pk):
             return redirect('user-profile', pk=recipient.id)
     
     context={'recipient':recipient, 'form':form}
-    if request.user.profile == recipient:
-        return HttpResponseRedirect("handler404")
+    # if request.user.profile == recipient:
+    #     return HttpResponseRedirect("handler404")
     return render(request, 'users/message_form.html', context) 
 
