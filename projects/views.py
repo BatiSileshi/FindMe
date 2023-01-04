@@ -84,7 +84,7 @@ def updateProject(request, pk):
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             project = form.save()
-            
+             
             # checking if tag written by user is created and then adding into database
             for tag in newtags:
                 tag, created = Tag.objects.get_or_create(name=tag)

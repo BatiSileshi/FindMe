@@ -1,0 +1,17 @@
+{% extends 'system_admin/main.html' %}
+
+{% block content%}
+
+<div class="container">
+<h4>Delete</h4>
+
+<form action="" method="POST">
+    {% csrf_token %}
+       
+    <p>Are you sure you want to delete "{{object}}"?</p>
+   <a href="{% url 'company-request' %}"> Go Back</a>
+    <input type="submit" value="Confirm">
+</form>
+   
+</div>
+{% endblock content%}

@@ -1,0 +1,79 @@
+{% extends 'system_admin/main.html' %}
+
+
+
+{% block content%}
+
+
+FindME Company request
+
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>City</th>
+        <th>Region</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Status</th>
+    </thead>
+
+    
+     <tbody>
+        {%  for company in companies %}
+        <tr>
+            <td>{{company.name}}</td>
+            <td>{{company.city}}</td>
+            <td>{{company.region}}</td>
+            <td>{{company.phone_number}}</td>
+            <td>{{company.email}}</td>
+            <td>
+                {% if company.is_accepted == False %}
+                <a href="{% url 'ac-request' company.id %}?q=accept">
+                    <button >Accept</button></a>
+                        
+                    <a href="{% url 'ac-request' company.id %}?q=cancel">
+                            <button>Cancel</button>
+                    </a>
+                {% elif company.is_accepted == True %}
+                 Accepted 
+                 {%  endif %}
+
+
+
+
+            </td>
+        </tr>
+        {% endfor %}
+     </tbody>
+    
+</table>
+
+
+
+<h4>Company Admins</h4>
+<a href="{% url 'add-company-admin' %}">Add Company admin</a>
+<table>
+    <thead>
+        <th>Company</th>
+        <th>Admin</th>
+    </thead>
+
+    
+     <tbody>
+        {%  for company_admin in company_admins %}
+        <tr>
+            <td>{{company_admin.company.name}}</td>
+            <td>{{company_admin.admin.profile.name}}</td>
+            <td>
+                    <a href="{% url 'delete-company-admin' company_admin.id %}">
+                            Delete
+                    </a>
+            </td>
+        </tr>
+        {% endfor %}
+     </tbody>
+    
+</table>
+
+{% endblock content%}
