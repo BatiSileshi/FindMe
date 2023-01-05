@@ -4,6 +4,8 @@ from .models import Company
 from django.http import HttpResponse
 from system_admin.models import CompanyAdmin
 from django.contrib import messages
+from users.utils import searchProfile
+from users.models import Profile
 
 # Create your views here.
 def register_company(request):
@@ -29,7 +31,7 @@ def welcome_company(request):
     return render(request, 'company/welcome_company.html', context)
 
 
-def about_company(request):
+def company_home(request):
     profile = request.user.profile
     company_admin = CompanyAdmin.objects.get(admin=profile)
     company = company_admin.company
@@ -37,4 +39,46 @@ def about_company(request):
     context={'company':company}
     if profile != company_admin.admin:
         return HttpResponse('handler404')
-    return render(request, 'company/about_company.html', context)
+    return render(request, 'company/company_home.html', context)
+
+
+def invitations(request):
+    profile = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=profile)
+    company = company_admin.company
+    
+    profiles = Profile.objects.filter(is_invited=True)
+    
+    context={'company':company, 'profiles':profiles}
+    if profile != company_admin.admin:
+        return HttpResponse('handler404')
+    return render(request, 'company/invitations.html', context)
+    
+
+def invite(request):
+    profile = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=profile)
+    admin = company_admin.admin
+    
+    profiles, search_query = searchProfile(request)
+    
+    context={'profiles':profiles, 'search_query':search_query, 'admin':admin}
+    if profile != company_admin.admin:
+        return HttpResponse('handler404')
+    return render(request, 'users/profiles.html', context)
+
+
+def invite_final(request, id):
+    employee = Profile.objects.get(id=id)
+    
+    q = None
+    if request.GET.get('q') is not None:
+        q = request.GET.get('q')
+        if q == 'invite':
+            employee.is_invited = True
+            employee.save()
+            return redirect('invitations')
+        else:
+            return HttpResponse('handler404')
+    context={'employee':employee}
+    return render(request, 'users/profiles.html', context)

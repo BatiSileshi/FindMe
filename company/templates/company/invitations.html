@@ -1,0 +1,38 @@
+{% extends 'company/main.html' %}
+
+
+
+{% block content%}
+
+
+Invitations
+<a href="{% url 'invite' %}">Invite </a>
+
+
+<table>
+    <thead>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        
+    </thead>
+    <tbody>
+        {% for profile in profiles%}
+         <tr>
+            <td><img src="{{profile.profile_image.url}}" alt="" style="width: 20px; height: 20px;"></td>
+            <td>{{profile.name}}</td>
+            <td>{{profile.email}}</td>
+            <td>
+                {% if profile.is_invited == True%}
+                Invited 
+                {% endif %}
+                
+            </td>
+         </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock content%}

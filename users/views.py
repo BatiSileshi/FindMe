@@ -7,31 +7,19 @@ from .forms import CustomUserCreationForm, MessageForm, ProfileForm, SkillForm
 from projects.models import Project
 from .models import Profile, Message
 from .utils import searchProfile
-import requests
-import json
+from system_admin.models import CompanyAdmin
 # Create your views here.
 
 
 
 def profiles(request):
+    prof = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=prof)
+    admin = company_admin.admin
+    
     profiles, search_query = searchProfile(request)
     
-    # x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    # if x_forwarded_for:
-    #     ip = x_forwarded_for.split(',')[0]
-    # else:
-    #     ip = request.META.get('REMOTE_ADDR')
-        
-    # geolocation_json = get_ip_geolocation_data(ip)
-
-    # geolocation_data = json.loads(geolocation_json)
-
-    # country = geolocation_data['country']
-
-
-    # region = geolocation_data['region']
-    
-    context={'profiles':profiles, 'search_query':search_query}
+    context={'profiles':profiles, 'search_query':search_query, 'admin':admin}
     return render(request, 'users/profiles.html', context)
 
 

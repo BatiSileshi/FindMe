@@ -1,0 +1,15 @@
+{% extends 'company/main.html' %}
+
+
+
+{% block content%}
+
+
+{{company.name}} Company
+
+<ul>
+    <li><a href="{% url 'invitations' %}">Invitations</a></li>
+    <li><a href="">Hired</a></li>
+</ul>
+
+{% endblock content%}

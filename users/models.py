@@ -18,7 +18,7 @@ class Profile(models.Model):
     social_linkedin = models.CharField(max_length=200, null=True, blank=True)
     social_facebook = models.CharField(max_length=200, null=True, blank=True)
     cv = models.FileField(null=True, blank=True)
-    
+    is_invited = models.BooleanField(default=False)
     is_cv_approved = models.BooleanField(default=False)
     is_hired = models.BooleanField(default=False)
     

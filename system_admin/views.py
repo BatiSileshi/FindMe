@@ -39,7 +39,7 @@ def accept_or_cancel_request(request, id):
     return render(request, 'system_admin/company_request.html', context)
 
 
-######################
+#############################
 # MANAGING COMPANY ADMIN
 #
 
@@ -69,5 +69,5 @@ def delete_company_admin(request, id):
             return redirect('company-request')
         else:
             messages.warning(request,'There was an error during deleting the selected hotel admin')
-    context = {'object': company_admin}
+    context = {'object': company_admin} 
     return render(request, 'system_admin/delete.html', context)
