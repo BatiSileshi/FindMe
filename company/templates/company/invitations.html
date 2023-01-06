@@ -29,6 +29,36 @@ Invitations
                 {% endif %}
                 
             </td>
+            {% if profile in invitations %}
+            {% else %}
+            <td><a href="{% url 'set-invitation' profile.id %}">Set Invitation</a></td>
+            {% endif%}
+         </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+Invitations with date
+
+<table>
+    <thead>
+        
+        <th>Name</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>Place</th>
+        
+    </thead>
+    <tbody>
+        {% for invitation in invitations%}
+         <tr>
+            <td>{{invitation.profile.name}}</td>
+            <td>{{invitation.profile.email}}</td>
+            <td>{{invitation.date}}</td>
+            <td>{{invitation.place}}</td>
+          
+            
          </tr>
         {% endfor %}
     </tbody>

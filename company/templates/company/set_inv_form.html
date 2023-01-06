@@ -1,0 +1,20 @@
+{% extends 'company/main.html' %}
+
+
+
+{% block content%}
+
+
+
+<form action="" method="POST" >
+    {% csrf_token %}
+    <label for="">Invitation date</label>
+    <input type="date" name="date">
+
+    <label for="">Place</label>
+    <input type="text" name="place">
+
+    <input type="submit" name="submit" id="" value="Submit">
+</form>
+
+{% endblock content %}

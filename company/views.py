@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import CompanyForm
-from .models import Company
-from django.http import HttpResponse
+from .forms import CompanyForm, InvitationForm
+from .models import Company, Invitation
+from django.http import HttpResponseRedirect, HttpResponse
 from system_admin.models import CompanyAdmin
 from django.contrib import messages
 from users.utils import searchProfile
@@ -49,12 +49,13 @@ def invitations(request):
     
     profiles = Profile.objects.filter(is_invited=True)
     
-    context={'company':company, 'profiles':profiles}
+    invitations = Invitation.objects.all()
+    context={'company':company, 'profiles':profiles, 'invitations':invitations}
     if profile != company_admin.admin:
         return HttpResponse('handler404')
     return render(request, 'company/invitations.html', context)
-    
-
+      
+      
 def invite(request):
     profile = request.user.profile
     company_admin = CompanyAdmin.objects.get(admin=profile)
@@ -63,8 +64,8 @@ def invite(request):
     profiles, search_query = searchProfile(request)
     
     context={'profiles':profiles, 'search_query':search_query, 'admin':admin}
-    if profile != company_admin.admin:
-        return HttpResponse('handler404')
+    # if profile != company_admin.admin:
+    #     return HttpResponse('handler404')
     return render(request, 'users/profiles.html', context)
 
 
@@ -82,3 +83,19 @@ def invite_final(request, id):
             return HttpResponse('handler404')
     context={'employee':employee}
     return render(request, 'users/profiles.html', context)
+
+
+def set_invitation(request, id):
+    profile = Profile.objects.get(id=id)
+    
+    if request.method == 'POST':
+        Invitation.objects.create(
+            profile_id = profile.id,
+            date = request.POST.get('date'),
+            place = request.POST.get('place')
+        )
+        return redirect('invitations')   
+    context={} 
+    if profile.is_invited == False:
+        return HttpResponseRedirect('handler404')
+    return render(request, "company/set_inv_form.html", context)
