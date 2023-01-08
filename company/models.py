@@ -10,7 +10,7 @@ class Company(models.Model):
     email = models.EmailField(null=True, blank=True)
     is_accepted = models.BooleanField(default=False)
     created=models.DateTimeField(auto_now_add=True)
-    updated=models.DateTimeField(auto_now=True)
+    updated=models.DateField(auto_now=True)
     
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Invitation(models.Model):
     date = models.DateTimeField(null=True, blank=True)
     place = models.CharField(max_length=200, null=True, blank=True)
     created=models.DateTimeField(auto_now_add=True)
-    updated=models.DateTimeField(auto_now=True)
+    updated=models.DateField(auto_now=True)
     
     def __str__(self):
         return self.profile.name
