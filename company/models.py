@@ -13,11 +13,12 @@ class Company(models.Model):
     updated=models.DateField(auto_now=True)
     
     def __str__(self):
-        return self.name
+        return self.name 
     
     
 class Invitation(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.SET_NULL, null=True)
+    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+    company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(null=True, blank=True)
     place = models.CharField(max_length=200, null=True, blank=True)
     created=models.DateTimeField(auto_now_add=True)

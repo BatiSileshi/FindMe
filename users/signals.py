@@ -9,7 +9,7 @@ from django.conf import settings
 
 def createProfile(sender, instance, created, **kwargs):
     if created:
-        user=instance
+        user=instance 
         profile = Profile.objects.create(
             user=user,
             # username=user.username,
