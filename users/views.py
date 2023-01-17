@@ -75,10 +75,10 @@ def registerUser(request):
     if request.method=='POST':
         form=CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            # user.username = user.username.lower()
+            user = form.save(commit=False)
+            user.username = user.username.lower()
             # user.email=profile.email
-            # user.save()
+            user.save()
             
             messages.success(request, "Account created!")
             
