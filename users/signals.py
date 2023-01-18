@@ -17,16 +17,16 @@ def createProfile(sender, instance, created, **kwargs):
             name=user.first_name,
         )
         
-        subject = ' Welcome to FindME platform!'
-        message = ' We are glad that you are here!'
+        # subject = ' Welcome to FindME platform!'
+        # message = ' We are glad that you are here!'
          
-        send_mail(
-            subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [user.email],
-            fail_silently =False,
-        )
+        # send_mail(
+        #     subject,
+        #     message,
+        #     settings.EMAIL_HOST_USER,
+        #     [user.email],
+        #     fail_silently =False,
+        # )
         
         
 def editProfile(sender, instance, created, **kwargs):
