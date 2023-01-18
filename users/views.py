@@ -13,11 +13,12 @@ from system_admin.models import CompanyAdmin
 
 
 def profiles(request):
-
+    
+ 
     
     profiles, search_query = searchProfile(request)
     
-    context={'profiles':profiles, 'search_query':search_query,}
+    context={'profiles':profiles, 'search_query':search_query}
     return render(request, 'users/profiles.html', context)
 
 

@@ -9,8 +9,8 @@ class CompanyAdmin(models.Model):
     admin = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
-    
+     
      
     def __str__(self):
-        return str((self.company.name, self.admin.first_name))
+        return str((self.company.name, self.admin.name))
 
