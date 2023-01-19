@@ -13,17 +13,12 @@ from system_admin.models import CompanyAdmin
 
 
 def profiles(request):
-    
- 
-    
     profiles, search_query = searchProfile(request)
     
     context={'profiles':profiles, 'search_query':search_query}
     return render(request, 'users/profiles.html', context)
 
 
-def work_with_us(request):
-    return render(request, 'users/work_with_us.html')
 
 def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
@@ -31,9 +26,6 @@ def userProfile(request, pk):
     skills = profile.skill_set.all()
     context={'profile':profile, 'projects':projects, 'skills':skills}
     return render(request, 'users/user_profile.html', context)
-
-
-
 
 
 
@@ -90,7 +82,7 @@ def registerUser(request):
     context={'page':page, 'form':form}
     return render(request, 'users/login_register.html', context)
 
-
+ 
 @login_required(login_url='login')
 def editProfile(request):
     profile  = request.user.profile
@@ -101,7 +93,10 @@ def editProfile(request):
         if form.is_valid():
             form.save()
             messages.success(request,'You have successfully updated your profile')
-            return redirect('account')
+            if profile.looking_for == 'work':
+                return redirect('account')
+            else:
+                return redirect('register-company')
         else:
             messages.error(request,'There is an error while processing your in put')
     context = {'form':form}
@@ -198,18 +193,25 @@ def viewMessage(request, pk):
     context={'message':message}
     return render(request, 'users/message.html', context)
 
-
+  
 
 
 def createMessage(request, pk):
     recipient = Profile.objects.get(id=pk)
+    
+    profile = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=profile)
+    
     form = MessageForm()
     
     try:
-        sender = request.user.profile
+        if profile:
+            sender = profile
+        else:
+            sender = company_admin 
     except:
         sender = None
-        
+         
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():

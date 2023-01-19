@@ -8,7 +8,6 @@ urlpatterns = [
     path('register/', views.registerUser, name="register"),
     path('', views.profiles, name="profiles"),
     
-    path('wwu/', views.work_with_us, name="work-with-us"),
     
     path('account/', views.account, name="account"),
     path('user-profile/<str:pk>/', views.userProfile, name="user-profile"),

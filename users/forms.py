@@ -20,10 +20,8 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        exclude = ['user', 'is_cv_approved', 'is_hired']
-        widgets = {
-            'cv': ClearableFileInput(attrs={'multiple': True}),
-        }
+        exclude = ['user', 'is_cv_approved', 'is_hired', 'is_invited']
+
         
         
         

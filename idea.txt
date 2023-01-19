@@ -33,7 +33,7 @@ users
 2. After approval they can post their skills and works 
 3. Yoo qacarame profile isaa irratti qacarameera jedha (is_hired=True)
 4. Company bakka qabu yoo jiraate apply itti gochuu dandaha 
-5. 
+5. User will submit all of his information once
 
 
 # company

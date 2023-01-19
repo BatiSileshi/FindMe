@@ -5,10 +5,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from system_admin.models import CompanyAdmin
 from django.contrib import messages
 from users.utils import searchProfile
-from users.models import Profile
+from users.models import Profile, Message
 
 # Create your views here.
 def register_company(request):
+    profile = request.user.profile
     form = CompanyForm(request.POST) 
     if request.method=='POST':
         form=CompanyForm(request.POST)
@@ -20,6 +21,8 @@ def register_company(request):
         else:
             messages.error(request, "Error occurred")
     context={'form':form}
+    if profile.looking_for == 'work':
+        return HttpResponseRedirect('handler404')
     return render(request, 'company/form.html', context)
 
 
@@ -38,7 +41,7 @@ def company_home(request):
     
     context={'company':company}
     if profile != company_admin.admin:
-        return HttpResponse('handler404')
+        return HttpResponseRedirect('handler404')
     return render(request, 'company/company_home.html', context)
 
 
@@ -46,43 +49,41 @@ def invitations(request):
     profile = request.user.profile
     company_admin = CompanyAdmin.objects.get(admin=profile)
     company = company_admin.company
+    admin=company_admin.admin
     
-    profiles = Profile.objects.filter(is_invited=True)
+    invitations = Message.objects.filter(sender=admin)
     
-    invitations = Invitation.objects.all()
-    context={'company':company, 'profiles':profiles, 'invitations':invitations}
+    context={'company':company, 'invitations':invitations}
     if profile != company_admin.admin:
-        return HttpResponse('handler404')
+        return HttpResponseRedirect('handler404')
     return render(request, 'company/invitations.html', context)
       
       
-def invite(request):
-    profile = request.user.profile
-    company_admin = CompanyAdmin.objects.get(admin=profile)
-    admin = company_admin.admin
+# def invite(request):
+#     profile = request.user.profile
+#     company_admin = CompanyAdmin.objects.get(admin=profile)
+#     admin = company_admin.admin
     
-    profiles, search_query = searchProfile(request)
+#     profiles, search_query = searchProfile(request)
     
-    context={'profiles':profiles, 'search_query':search_query, 'admin':admin}
-    # if profile != company_admin.admin:
-    #     return HttpResponse('handler404')
-    return render(request, 'users/profiles.html', context)
+#     context={'profiles':profiles, 'search_query':search_query, 'admin':admin}
+#     return render(request, 'users/profiles.html', context)
 
 
-def invite_final(request, id):
-    employee = Profile.objects.get(id=id)
+# def invite_final(request, id):
+#     employee = Profile.objects.get(id=id)
     
-    q = None
-    if request.GET.get('q') is not None:
-        q = request.GET.get('q')
-        if q == 'invite':
-            employee.is_invited = True
-            employee.save()
-            return redirect('invitations')
-        else:
-            return HttpResponse('handler404')
-    context={'employee':employee}
-    return render(request, 'users/profiles.html', context)
+#     q = None
+#     if request.GET.get('q') is not None:
+#         q = request.GET.get('q')
+#         if q == 'invite':
+#             employee.is_invited = True
+#             employee.save()
+#             return redirect('invitations')
+#         else:
+#             return HttpResponse('handler404')
+#     context={'employee':employee}
+#     return render(request, 'users/profiles.html', context)
 
 
 def set_invitation(request, id):

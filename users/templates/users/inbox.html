@@ -17,7 +17,7 @@
 
             {% for message in messageRequests %}
             {% if message.is_read == False %}
-
+ 
             <a href="{% url 'message' message.id %}" ><li class="message unread">{{message.name}},  <span>{{message.created_at}}</span></li></a>
             {% else %}
             <a href="{% url 'message' message.id %}" ><li class="message">{{message.name}}, <span>{{message.created_at}}</span></li></a>

@@ -3,8 +3,12 @@ import uuid
 from django.contrib.auth.models import User
 
 # Create your models here.
-  
+   
 class Profile(models.Model):
+    LOOKING_FOR=(
+        ('work', 'Work'),
+        ('employee', 'Employee'),    
+    )
     user=models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(max_length=300, null=True, blank=True)
@@ -18,9 +22,10 @@ class Profile(models.Model):
     social_linkedin = models.CharField(max_length=200, null=True, blank=True)
     social_facebook = models.CharField(max_length=200, null=True, blank=True)
     cv = models.FileField(null=True, blank=True)
-    is_invited = models.BooleanField(default=False)
+    # is_invited = models.BooleanField(default=False)
     is_cv_approved = models.BooleanField(default=False)
     is_hired = models.BooleanField(default=False)
+    looking_for = models.CharField(max_length=20, null=True, choices=LOOKING_FOR)
     
     created_at=models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
