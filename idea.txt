@@ -39,7 +39,7 @@ users
 # company
 1. Company will register to ourplatform 
 2. They search for employees and can hire them
-3. Company nama barbaade sana invite godha
+3. Company nama barbaade sana message barreesseefii invite godha
 4. Hired jedhee declare godhaaf
 5. Yoo nama qacaruu barbaade waan ittiin qacaruu barbaade sana post godha
 
@@ -47,3 +47,8 @@ users
 1. two options looking for work and looking for employee
 - if for work then the user will be redirected to the account page 
 - if looking for employee redirect him to form to fulfill about his company 
+
+
+
+## working on  jan 20
+1. Creating JobPost Model

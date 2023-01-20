@@ -198,17 +198,16 @@ def viewMessage(request, pk):
 
 def createMessage(request, pk):
     recipient = Profile.objects.get(id=pk)
-    
-    profile = request.user.profile
-    company_admin = CompanyAdmin.objects.get(admin=profile)
-    
     form = MessageForm()
     
     try:
-        if profile:
-            sender = profile
-        else:
+        if request.user.profile:
+            company_admin = CompanyAdmin.objects.get(admin=request.user.profile)
+            sender = request.user.profile
+        elif company_admin:
             sender = company_admin 
+        else:
+            sender = None
     except:
         sender = None
          
@@ -233,4 +232,6 @@ def createMessage(request, pk):
     #     return HttpResponseRedirect("handler404")
     return render(request, 'users/message_form.html', context) 
 
+  
+  
   

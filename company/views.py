@@ -100,3 +100,8 @@ def set_invitation(request, id):
     if profile.is_invited == False:
         return HttpResponseRedirect('handler404')
     return render(request, "company/set_inv_form.html", context)
+
+
+
+def post_job(request):
+    pass

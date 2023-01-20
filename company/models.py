@@ -4,6 +4,7 @@ from users.models import Profile
 
 class Company(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
+    type = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     region = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
@@ -28,4 +29,18 @@ class Invitation(models.Model):
         return self.profile.name
     
     
+    
+    
+class JobPost(models.Model):
+    company= models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
+    title = models.CharField(max_length=300, null=True, blank=True)
+    type = models.CharField(max_length=200, null=True, blank=True)
+    salary = models.CharField(max_length=200, null=True, blank=True)
+    description = models.TextField()
+    requirements = models.TextField()
+    created=models.DateTimeField(auto_now_add=True)
+    updated=models.DateField(auto_now=True)
+    
+    def __str__(self):
+        return self.title
     
