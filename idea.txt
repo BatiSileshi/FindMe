@@ -51,4 +51,4 @@ users
 
 
 ## working on  jan 20
-1. Creating JobPost Model
+1. Creating JobPost Model - created
