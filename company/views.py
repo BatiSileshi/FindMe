@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from .forms import CompanyForm, InvitationForm
-from .models import Company, Invitation
-from django.http import HttpResponseRedirect, HttpResponse
+from .forms import CompanyForm, JobPostForm
+from .models import Company, Invitation, JobPost
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from system_admin.models import CompanyAdmin
 from django.contrib import messages
 from users.utils import searchProfile
 from users.models import Profile, Message
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register_company(request):
@@ -57,8 +58,69 @@ def invitations(request):
     if profile != company_admin.admin:
         return HttpResponseRedirect('handler404')
     return render(request, 'company/invitations.html', context)
+  
       
+@login_required(login_url="login")  
+def jobs(request):
+    profile = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=profile)
+    company = company_admin.company
+    admin=company_admin.admin
+    
+    jobs = JobPost.objects.filter(company=company)
+    context={'jobs':jobs}
+    
+    return render(request, 'company/jobs.html', context)  
+    
+@login_required(login_url="login")  
+def post_job(request):
+    profile = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=profile)
+    company = company_admin.company
+    admin=company_admin.admin
+    
+    form = JobPostForm(request.POST)
+    if request.method == 'POST':
+        form=JobPostForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=False)
+            job.company = company
+            job.save()
+            messages.success(request, "You have successfully posted a job.")
+            return redirect('jobs')
+
+        else:
+            messages.error(request, "Error occurred")
+    context = {'form':form}
+    if profile != admin:
+        return HttpResponseRedirect("handler404")
+    return render(request, 'company/post_form.html', context)
       
+     
+@login_required(login_url="login")  
+def update_job_post(request, pk):
+    profile = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=profile)
+    company = company_admin.company
+    admin=company_admin.admin
+    try:
+        job = JobPost.objects.get(id=pk, company=company)  
+    except:
+        return HttpResponseRedirect('handler404')
+    
+    form = JobPostForm(instance=job)
+    if request.method == 'POST':
+      
+        form = JobPostForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "You have successfully updated a job.")
+            return redirect('jobs')
+        else:
+            messages.error(request, "Error occurred, while updating. Please try again later")
+    context={'form':form}  
+    return render(request, 'company/post_form.html', context)
+
 # def invite(request):
 #     profile = request.user.profile
 #     company_admin = CompanyAdmin.objects.get(admin=profile)
@@ -101,7 +163,3 @@ def set_invitation(request, id):
         return HttpResponseRedirect('handler404')
     return render(request, "company/set_inv_form.html", context)
 
-
-
-def post_job(request):
-    pass

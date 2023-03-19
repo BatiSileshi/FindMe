@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<div>
+
+    {% for new in news %}
+      <h4>{{new.title}}</h4>
+      <p>{{new.type}}</p>
+      <p>{{new.salary}}</p>
+      <p>{{new.company.name}}</p>
+      <p>on {{new.updated}}</p>
+    
+      <a href="{% url 'single-news' new.id %}">View</a>
+    {% endfor %}
+</div>
+
+{% endblock content%}

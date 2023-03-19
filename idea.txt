@@ -52,3 +52,6 @@ users
 
 ## working on  jan 20
 1. Creating JobPost Model - created
+
+Jan 21
+work on JOBPOST crud

@@ -32,9 +32,6 @@ FindME Company request
                 <a href="{% url 'ac-request' company.id %}?q=accept">
                     <button >Accept</button></a>
                         
-                    <a href="{% url 'ac-request' company.id %}?q=cancel">
-                            <button>Cancel</button>
-                    </a>
                 {% elif company.is_accepted == True %}
                  Accepted 
                  {%  endif %}

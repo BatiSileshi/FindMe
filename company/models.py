@@ -32,15 +32,25 @@ class Invitation(models.Model):
     
     
 class JobPost(models.Model):
-    company= models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
+    company= models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=300, null=True, blank=True)
     type = models.CharField(max_length=200, null=True, blank=True)
     salary = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField()
     requirements = models.TextField()
+    is_closed = models.BooleanField(default=False)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateField(auto_now=True)
     
     def __str__(self):
         return self.title
+      
+      
+class JobApplication(models.Model):
+    profile= models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    job= models.ForeignKey(JobPost, on_delete=models.CASCADE, null=True, blank=True)
+    created=models.DateTimeField(auto_now_add=True)
+    updated=models.DateField(auto_now=True)
     
+    def __str__(self):
+        return self.profile.name

@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<div>
+
+   
+      <h4>{{single_news.title}}</h4>
+      <p>{{single_news.type}}</p>
+      <p>{{single_news.salary}}</p>
+      <p>{{single_news.company.name}}</p>
+      <p>on {{single_news.updated}}</p>
+
+    
+      <form action="" method="POST" >
+        {% csrf_token %}
+         {{form.as_p}}
+    
+        <input type="submit" value="Save">
+      </form>
+
+</div>
+
+{% endblock content%}

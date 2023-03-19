@@ -5,9 +5,12 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm, MessageForm, ProfileForm, SkillForm
 from projects.models import Project
+from company.models import JobPost
 from .models import Profile, Message
 from .utils import searchProfile
 from system_admin.models import CompanyAdmin
+from company.models import JobPost
+from company.forms import JobApplicationForm
 # Create your views here.
 
 
@@ -234,4 +237,24 @@ def createMessage(request, pk):
 
   
   
-  
+def news(request):
+    news = JobPost.objects.all()
+    context={'news': news}
+    return render(request, 'users/news.html', context)
+    
+    
+def single_news(request, pk):
+    profile = request.user.profile
+    single_news = JobPost.objects.get(id=pk)
+    form = JobApplicationForm(request.POST)
+    if request.method == 'POST':
+        form = JobApplicationForm(request.POST)
+        if form.is_valid():
+            job= form.save(commit=False)
+            job.profile = profile
+            job.job = single_news
+            job.save()
+            return redirect('single-news', pk=single_news.id)
+    context = {'single_news':single_news}
+    return render(request, 'users/single_news.html', context)
+    

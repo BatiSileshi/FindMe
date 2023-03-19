@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Company, Invitation
+from .models import Company, Invitation, JobPost, JobApplication
  
 class CompanyForm(ModelForm):
     class Meta:
@@ -11,3 +11,15 @@ class InvitationForm(ModelForm):
     class Meta:
         model = Invitation
         exclude = ['profile']
+        
+class JobPostForm(ModelForm):
+    class Meta:
+        model = JobPost
+        exclude = ['company']
+        
+        
+        
+class JobApplicationForm(ModelForm):
+    class Meta:
+        model=JobApplication
+        exclude = ['profile', 'company']

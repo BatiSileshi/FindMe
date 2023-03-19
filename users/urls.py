@@ -19,4 +19,7 @@ urlpatterns = [
     path('update-skill/<str:pk>/', views.updateSkill, name="update-skill"),
     path('delete-skill/<str:pk>/', views.deleteSkill, name="delete-skill"),
     
+    path('news/', views.news, name="news"),
+    path('news/<str:pk>/', views.single_news, name="single-news"),
+    
 ]

@@ -17,7 +17,7 @@ def company_request(request):
     context={'companies':companies, 'company_admins':company_admins}
     return render(request, 'system_admin/company_request.html', context)
 
-
+  
 
 def accept_or_cancel_request(request, id):
     company = Company.objects.get(id=id)
@@ -27,10 +27,6 @@ def accept_or_cancel_request(request, id):
         q = request.GET.get('q')
         if q == 'accept':
             company.is_accepted = True
-            company.save()
-            return redirect('company-request')
-        elif q == 'cancel':
-            company.is_accepted = False
             company.save()
             return redirect('company-request')
         else:

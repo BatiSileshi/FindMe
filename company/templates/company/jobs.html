@@ -1,0 +1,20 @@
+{% extends 'company/main.html' %}
+
+{% block content%}
+
+
+
+<div>
+    <li><a href="{% url 'post-job' %}">Post job</a></li>
+
+    {% for job in jobs %}
+      <h4>{{job.title}}</h4>
+      <p>{{job.type}}</p>
+      <p>{{job.salary}}</p>
+      <p>{{job.company.name}}</p>
+      <p>on {{job.updated}}</p>
+       <a href="{% url 'update-job' job.id %}">Update</a>
+    {% endfor %}
+</div>
+
+{% endblock content %}
