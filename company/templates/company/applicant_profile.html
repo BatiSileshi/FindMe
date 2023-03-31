@@ -1,0 +1,116 @@
+{% extends 'company/main.html' %}
+{% load static %}
+{% block content%}
+
+
+<h5>Applicant profile</h5>
+
+
+<!-- USER PROFILE SECTION -->
+
+<section>
+    <div class="row profile-all ">
+   
+        <div class="col s12 m3 l3 profile-img user-profile center" >
+            {% if profile.profile_image %}
+            <img src="{{profile.profile_image.url}}" alt="{{Profile.name}}" >
+            {% endif %}
+            <h5>{{profile.name}}</h5>
+            <p>{{profile.short_intro}}</p>
+
+
+            <ul class="row">
+                {% if profile.telegram %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.telegram}}"> <img src="{% static 'style/images/tg_icon_black.png' %}" alt="~" ></a></li>
+                {%endif%}
+    
+                {% if profile.social_youtube %}
+                <li class="col s2 m2 l2 social-link"> <a href="{{profile.social_youtube}}">
+                    <img src="{% static 'style/images/yt_icon_black.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_github %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_github}}">
+                    <img src="{% static 'style/images/githubicon.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_website %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_website}}">
+                    <img src="{% static 'style/images/website_icon.jpg' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_linkedid %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_linkedin}}">
+                    <img src="{% static 'style/images/li_icon_black.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+                {% if profile.social_facebook %}
+                <li class="col s2 m2 l2 social-link"><a href="{{profile.social_facebook}}">
+                    <img src="{% static 'style/images/fb_icon_black.png' %}" alt="~" >
+                </a></li>
+                {%endif%}
+
+            </ul>
+
+        </div>
+
+       
+        <div class="col s12 m9 l9">
+            <h4 class="brand-logo center">ABOUT ME</h4>
+
+            <p>{{profile.bio}}</p>
+
+
+
+
+     <h4 class="brand-logo center">MY SKILLS </h4>
+
+
+     <ul>
+
+        {% for skill in skills %}
+
+        <li><h6> <img src="{% static 'style/images/ok--v3.png' %}" alt="" class="skill-img"> {{skill.name}}</h6>
+        <p>{{skill.description}}</p>
+        </li>
+        
+        {%endfor%}
+        
+     <h4 class="brand-logo center">MY PROJECTS </h4>
+
+
+
+     <div class="row "> 
+        {% for project in projects %}
+        <div class="col s12 m6 l4">
+            <div class="card ">
+                
+                <div class="card-image"> 
+                    {% if project.project_image %}
+                    <img src="{{project.project_image.url}}" alt="{{project.title}}" >
+                    {% endif %}
+                
+                </div>
+                
+                <div class="card-content black-text">
+    
+                    <span class="card-title black-text"><b>{{project.title}}</b></span>
+                    
+                   <p>{{project.description}}</p>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    
+
+     </div>
+    </div>
+    </div>
+ </section>
+
+<!-- END OF USER PROFILE SECTION  -->
+{% endblock content %}

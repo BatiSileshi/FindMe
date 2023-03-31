@@ -1,0 +1,27 @@
+{% extends 'company/main.html' %}
+
+{% block content%}
+
+
+<h5>Job Applications</h5>
+
+<table>
+<thead>
+    <th>Applicant</th>
+    <th>Job Title</th>
+    <th>View Applicant</th>
+</thead>
+<tbody>
+    {% for job_app in job_apps %}
+    <tr>
+        <td>{{job_app.profile}}</td>
+        <td>{{job_app.job.title}}</td>
+        <td><a href="{% url 'view-applicant' job_app.profile.id %}">View</a></td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+
+
+{% endblock content %}

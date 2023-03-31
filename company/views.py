@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import CompanyForm, JobPostForm
-from .models import Company, Invitation, JobPost
+from .models import Invitation, JobPost, JobApplication
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from system_admin.models import CompanyAdmin
 from django.contrib import messages
@@ -65,6 +65,7 @@ def jobs(request):
     profile = request.user.profile
     company_admin = CompanyAdmin.objects.get(admin=profile)
     company = company_admin.company
+    
     admin=company_admin.admin
     
     jobs = JobPost.objects.filter(company=company)
@@ -120,6 +121,27 @@ def update_job_post(request, pk):
             messages.error(request, "Error occurred, while updating. Please try again later")
     context={'form':form}  
     return render(request, 'company/post_form.html', context)
+
+
+@login_required(login_url="login") 
+def job_applications(request):
+    profile = request.user.profile
+    company_admin = CompanyAdmin.objects.get(admin=profile)
+
+    company = company_admin.company
+    job_apps = JobApplication.objects.filter(job__company=company)
+    print(job_apps)
+    context ={'job_apps': job_apps}
+
+    return render(request, 'company/job_applications.html', context)
+
+@login_required(login_url="login") 
+def view_applicant(request, pk):
+    profile = Profile.objects.get(id=pk)
+    projects = profile.project_set.all()
+    skills = profile.skill_set.all()
+    context={'profile':profile, 'projects':projects, 'skills':skills}
+    return render(request, 'company/applicant_profile.html', context)
 
 # def invite(request):
 #     profile = request.user.profile

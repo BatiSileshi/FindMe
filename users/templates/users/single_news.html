@@ -11,13 +11,16 @@
       <p>{{single_news.company.name}}</p>
       <p>on {{single_news.updated}}</p>
 
-    
+      {% if existing_application %}
+      <p>You have applied</p>
+      {% else %}
       <form action="" method="POST" >
         {% csrf_token %}
          {{form.as_p}}
     
-        <input type="submit" value="Save">
+        <input type="submit" value="Apply">
       </form>
+      {%endif%}
 
 </div>
 

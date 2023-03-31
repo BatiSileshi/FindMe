@@ -9,7 +9,7 @@ from company.models import JobPost
 from .models import Profile, Message
 from .utils import searchProfile
 from system_admin.models import CompanyAdmin
-from company.models import JobPost
+from company.models import JobPost, JobApplication
 from company.forms import JobApplicationForm
 # Create your views here.
 
@@ -241,20 +241,29 @@ def news(request):
     news = JobPost.objects.all()
     context={'news': news}
     return render(request, 'users/news.html', context)
+   
     
-    
+@login_required(login_url='login')  
 def single_news(request, pk):
     profile = request.user.profile
     single_news = JobPost.objects.get(id=pk)
+    existing_application=JobApplication.objects.filter(profile=profile, job=single_news).exists()
     form = JobApplicationForm(request.POST)
     if request.method == 'POST':
         form = JobApplicationForm(request.POST)
+        
         if form.is_valid():
             job= form.save(commit=False)
             job.profile = profile
             job.job = single_news
-            job.save()
-            return redirect('single-news', pk=single_news.id)
-    context = {'single_news':single_news}
+
+            print(existing_application)
+            if existing_application:
+                return HttpResponse("You have applied for this project")
+            else:           
+                job.save()
+                return redirect('single-news', pk=single_news.id)
+    context = {'single_news':single_news, 'existing_application':existing_application}
+
     return render(request, 'users/single_news.html', context)
     
